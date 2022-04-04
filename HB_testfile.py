@@ -24,7 +24,7 @@ m_labels = None                                             # set to None for ma
 percipis_m = Perceptatron(inputs.shape[1], learning_rate=0.2, n_iterations=5)
 
 print(percipis_m.predict(inputs))                           # first guess
-percipis_m.fit(inputs, m_labels, automatic=False)           # manual fitting och perceptron
+percipis_m.fit(inputs, m_labels, automatic=False)           # manual fitting by asking for correct label from user
 print(percipis_m.predict(inputs))                           # after fit guess
 
 
