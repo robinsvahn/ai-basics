@@ -5,7 +5,6 @@ import os
 
 class Main():
 
-    data_available = False
     name = ""
     perceptron = None
     labels = []
@@ -15,29 +14,42 @@ class Main():
     def __init__(self) -> None:
         self.show_welcome_screen()
 
-    def load_data(self) -> None:
+    def display_data(self) -> None:
+        print(f"Attribute labels: {self.labels}")
         for index in range(len(self.input_data)):
             print(
                 f"Data set: {self.input_data_labels[index]} - Attributes: {self.input_data[index][:-1]} - Expected: {self.input_data[index][-1:]}")
 
     def show_welcome_screen(self) -> None:
         os.system("cls")
+        print("===================================")
         print("Welcome to the dreamteam perceptron")
-        # self.automatic_training =
+        print("===================================")
+        print()
+        self.automatic_training = input(
+            "Would you like to use automatic training? (Y/N): ") == "y"
+
         if isinstance(self.perceptron, type(None)):
             if input("Do you want to use dummy data? (Y/N): ").lower() == "y":
                 self.create_dummy_model()
             else:
                 self.create_model()
+        print()
+        print(
+            f"The model {self.name} has been created with the following data: ")
+        self.display_data()
+        print()
+
         self.perceptron = Perceptron(len(self.labels))
-        print(f"Before - {self.perceptron.predict(self.input_data[:, :-1])}")
+        print(
+            f"Prediction before learning - {self.perceptron.predict(self.input_data[:, :-1])}")
         self.perceptron.fit(
-            self.input_data[:, :-1], self.input_data[:, -1:], self.input_data_labels, True)
-        print(f"After - {self.perceptron.predict(self.input_data[:, :-1])}")
-        self.load_data()
+            self.input_data[:, :-1], self.input_data[:, -1:], self.input_data_labels, self.automatic_training)
+        print(
+            f"Prediction after learning - {self.perceptron.predict(self.input_data[:, :-1])}")
 
     def create_dummy_model(self):
-        self.name = "Dummy model"
+        self.name = "Dragonfly flight response simulator"
         self.labels = ["Has 4 legs", "Is green", "Has a heart",
                        "Has a tail", "Is taller than 30cm", "Breathes fire"]
         self.input_data_labels = ["Cat", "Frog",
@@ -66,8 +78,6 @@ class Main():
     def add_data_to_model(self) -> None:
         print(
             "Lets add a data set")
-        # self.input_data = np.array([[1, 1, 0, 1, 1], [0, 0, 1, 1, 1], [1, 0, 0, 1, 0], [
-        #                            1, 0, 1, 1, 0], [0, 0, 0, 0, 0], [1, 1, 1, 1, 1]])
         user_input = ""
 
         while user_input.lower() != "f":
@@ -91,12 +101,7 @@ class Main():
             user_input = input(
                 "Type 'f' to finish adding data or enter anything else to continue adding: ")
 
-        self.load_data()
-
-    def save_new_data() -> None:
-        input_nodes = []
-
-        # self.perceptron = Perceptron(len(input_nodes))
+        self.display_data()
 
 
-test = Main()
+Main()

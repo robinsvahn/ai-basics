@@ -19,22 +19,15 @@ class Perceptatron:
             for i, input_i in enumerate(inputs):
                 predicted = self.predict(input_i)
                 if automatic:
-                    # Perceptron update rule when automatic
-                    # print("For: " + str(dataset_labels[i]) +
-                    #       " the Perceptotron predict the output to be " + str(predicted) + " should be " + str(labels[i]))
                     update = self.lr * (labels[i] - predicted)
-                    # print(
-                    #     f"The weights are now therefor updated with {update}")
                 else:
                     print("For: " + str(dataset_labels[i]) +
-                          " the Perceptotron predict the output to be " + str(predicted))
+                          " the perceptron predict the output to be " + str(predicted))
                     answer = int(input("What is the expected output? (0/1)"))
                     # Perceptron update rule when manual
                     update = self.lr * (answer - predicted)
                 temp = np.array(update * input_i)
                 self.weights += temp                                  # adjusting weights
-                # if _ < 10 or _ % 200 == 0:
-                #     print(self.weights)
 
 
 def _unit_step_func(x, threshold=1):
