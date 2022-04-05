@@ -1,6 +1,6 @@
-from robin_perceptron import Robin_Perceptron as Perceptron
-from input_node import Input_Node
+from HB_perceptron import Perceptatron as Perceptron
 import numpy as np
+import os
 
 
 class Main():
@@ -9,20 +9,45 @@ class Main():
     name = ""
     perceptron = None
     labels = []
+    input_data_labels = []
     input_data = None
 
     def __init__(self) -> None:
         self.show_welcome_screen()
 
     def load_data(self) -> None:
-        print("DATA")
+        for index in range(len(self.input_data)):
+            print(
+                f"Data set: {self.input_data_labels[index]} - Attributes: {self.input_data[index][:-1]} - Expected: {self.input_data[index][-1:]}")
 
     def show_welcome_screen(self) -> None:
-        print("Welcome to robins perceptron")
+        os.system("cls")
+        print("Welcome to the dreamteam perceptron")
+        # self.automatic_training =
         if isinstance(self.perceptron, type(None)):
-            self.create_model()
+            if input("Do you want to use dummy data? (Y/N): ").lower() == "y":
+                self.create_dummy_model()
+            else:
+                self.create_model()
         self.perceptron = Perceptron(len(self.labels))
-        self.perceptron.train(self.input_data[:, :-1], self.input_data[:, -1:])
+        print(f"Before - {self.perceptron.predict(self.input_data[:, :-1])}")
+        self.perceptron.fit(
+            self.input_data[:, :-1], self.input_data[:, -1:], self.input_data_labels, True)
+        print(f"After - {self.perceptron.predict(self.input_data[:, :-1])}")
+        self.load_data()
+
+    def create_dummy_model(self):
+        self.name = "Dummy model"
+        self.labels = ["Has 4 legs", "Is green", "Has a heart",
+                       "Has a tail", "Is taller than 30cm", "Breathes fire"]
+        self.input_data_labels = ["Cat", "Frog",
+                                  "Andreas", "Dragon", "Flower", "Chair"]
+        self.input_data = np.array([[1, 0, 1, 1, 1, 0, 1],
+                                    [1, 1, 1, 0, 0, 0, 1],
+                                    [0, 0, 1, 0, 1, 1, 0],
+                                    [1, 0, 1, 1, 1, 1, 1],
+                                    [0, 1, 0, 0, 0, 0, 0],
+                                    [1, 1, 0, 0, 1, 0, 0]])
 
     def create_model(self) -> None:
         self.name = input(
@@ -47,6 +72,8 @@ class Main():
 
         while user_input.lower() != "f":
             temp_array = np.zeros(len(self.labels)+1)
+            self.input_data_labels.append(
+                input("Please enter a name for the dataset: "))
             for index in range(len(self.labels)):
                 temp_input = input(
                     f"Please enter a 0(=False) or 1(=True) for the attribute {self.labels[index]}: ")
@@ -63,6 +90,8 @@ class Main():
             print(self.input_data)
             user_input = input(
                 "Type 'f' to finish adding data or enter anything else to continue adding: ")
+
+        self.load_data()
 
     def save_new_data() -> None:
         input_nodes = []
