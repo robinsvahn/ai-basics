@@ -2,7 +2,7 @@ import numpy as np
 
 
 class Perceptatron:
-    def __init__(self, n_features, learning_rate=0.01, n_iterations=300):
+    def __init__(self, n_features, learning_rate=0.01, n_iterations=10):
         self.lr = learning_rate
         self.n_iterations = n_iterations
         self.weights = np.random.ranf(n_features)
