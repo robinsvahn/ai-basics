@@ -39,14 +39,20 @@ class Main():
             f"The model {self.name} has been created with the following data: ")
         self.display_data()
         print()
-
         self.perceptron = Perceptron(len(self.labels))
-        print(
-            f"Prediction before learning - {self.perceptron.predict(self.input_data[:, :-1])}")
-        self.perceptron.fit(
-            self.input_data[:, :-1], self.input_data[:, -1:], self.input_data_labels, self.automatic_training)
-        print(
-            f"Prediction after learning - {self.perceptron.predict(self.input_data[:, :-1])}")
+
+        user_command = input(
+            "Enter Y to start training, or any other key to end programm: ").lower()
+        while user_command == "y":            
+            print(
+                f"Prediction before learning - {self.perceptron.predict(self.input_data[:, :-1])}")
+            self.perceptron.fit(
+                self.input_data[:, :-1], self.input_data[:, -1:], self.input_data_labels, self.automatic_training)
+            print(
+                f"Prediction after learning - {self.perceptron.predict(self.input_data[:, :-1])}")
+            user_command = input(
+                "Enter Y to start a new training, or any other key to end programm: ").lower()
+            print()
 
     def create_dummy_model(self):
         self.name = "Dragonfly flight response simulator"
