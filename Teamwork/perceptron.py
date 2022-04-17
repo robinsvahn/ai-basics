@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class Perceptatron:
+class Perceptron:
     def __init__(self, n_features, learning_rate=0.01, n_iterations=10):
         self.lr = learning_rate
         self.n_iterations = n_iterations

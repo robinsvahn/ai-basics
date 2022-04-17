@@ -1,4 +1,4 @@
-from HB_perceptron import Perceptatron as Perceptron
+from perceptron import Perceptron
 import numpy as np
 import os
 
@@ -43,16 +43,17 @@ class Main():
 
         user_command = input(
             "Enter Y to start training, or any other key to end programm: ").lower()
-        while user_command == "y":            
+        while user_command == "y":
             print(
                 f"Prediction before learning - {self.perceptron.predict(self.input_data[:, :-1])}")
             self.perceptron.fit(
                 self.input_data[:, :-1], self.input_data[:, -1:], self.input_data_labels, self.automatic_training)
             print(
                 f"Prediction after learning - {self.perceptron.predict(self.input_data[:, :-1])}")
+            print()
             user_command = input(
                 "Enter Y to start a new training, or any other key to end programm: ").lower()
-            print()
+            
 
     def create_dummy_model(self):
         self.name = "Dragonfly flight response simulator"
